@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 public class MergeSort {
     public static void main(String[] args) {
         // int[] nums = {2, 1, 3, 2, 2, 6, 5, 7};
-        int[] nums = generateRandomArray(100000000, 100);   // 随机生成一亿个数
+        int[] nums = SortDemo.generateRandomArray(100000000, 100);   // 随机生成一亿个数
         System.out.println("mergeSort: " + SortDemo.test(nums, (tmp) -> mergeSort(tmp, 0, tmp.length - 1)) + "ms"); // 一个线程排序
         System.out.println("concurrentMergeSort: " + SortDemo.test(nums, (tmp) -> concurrentMergeSort(tmp, 0, tmp.length - 1)) + "ms"); // 两个线程排序
         System.out.println("customConcurrentMergeSort: " + SortDemo.test(nums, (tmp) -> customConcurrentMergeSort(tmp, 0, tmp.length - 1, 6)) + "ms"); // 六个线程排序
@@ -89,14 +89,6 @@ public class MergeSort {
         }
         merge(nums, L, M, R);   // 合并两个已经排序好的有序数组
     }
-
-    public static int[] generateRandomArray(int len, int max){
-        int[] arr = new int[len];
-        for(int i = 0; i < arr.length; i++){
-            arr[i] = (int)(Math.random() * max);
-        }
-        return arr;
-    }
 }
 
 class SortDemo {
@@ -118,5 +110,13 @@ class SortDemo {
         sort.accept(tmp);
         long end = System.currentTimeMillis();
         return end - start;
+    }
+
+    public static int[] generateRandomArray(int len, int max){
+        int[] arr = new int[len];
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = (int)(Math.random() * max);
+        }
+        return arr;
     }
 }
