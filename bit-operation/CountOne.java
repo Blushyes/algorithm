@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.Set;
-
 /**
  * 数出一个数中的二进制1的个数
  */
