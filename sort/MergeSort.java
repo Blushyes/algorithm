@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.function.Consumer;
-
 /**
  * 归并排序递归版
  */
@@ -15,7 +12,7 @@ public class MergeSort {
     }
 
     // 归并排序
-    private static void mergeSort(int[] nums, final int L, final int R) {
+    public static void mergeSort(int[] nums, final int L, final int R) {
         if (L == R) {   // 递归基，如果 L == R 说明区间只有1个数，则直接返回，不需要进行排序
             return;
         }
@@ -42,7 +39,7 @@ public class MergeSort {
     }
 
     // 多线程归并排序
-    private static void concurrentMergeSort(int[] nums, final int L, final int R) {
+    public static void concurrentMergeSort(int[] nums, final int L, final int R) {
         if (L == R) {   // 递归基，如果 L == R 说明区间只有1个数，则直接返回，不需要进行排序
             return;
         }
@@ -61,7 +58,7 @@ public class MergeSort {
     }
 
     // 自定义线程数归并排序
-    private static void customConcurrentMergeSort(int[] nums, final int L, final int R, int threadNumber) {
+    public static void customConcurrentMergeSort(int[] nums, final int L, final int R, int threadNumber) {
         if (L == R) {   // 递归基，如果 L == R 说明区间只有1个数，则直接返回，不需要进行排序
             return;
         }
@@ -113,35 +110,5 @@ public class MergeSort {
             }
             sortSize <<= 1;
         }
-    }
-}
-
-class SortDemo {
-    public static long test(int[] nums, boolean outputFlag, Consumer<int[]> sort) {
-        long start = System.currentTimeMillis();
-        int[] tmp = Arrays.copyOf(nums, nums.length);
-        sort.accept(tmp);
-        if (outputFlag) {
-            System.out.println(Arrays.toString(tmp));
-        }
-        long end = System.currentTimeMillis();
-        return end - start;
-
-    }
-
-    public static long test(int[] nums, Consumer<int[]> sort) {
-        long start = System.currentTimeMillis();
-        int[] tmp = Arrays.copyOf(nums, nums.length);
-        sort.accept(tmp);
-        long end = System.currentTimeMillis();
-        return end - start;
-    }
-
-    public static int[] generateRandomArray(int len, int max){
-        int[] arr = new int[len];
-        for(int i = 0; i < arr.length; i++){
-            arr[i] = (int)(Math.random() * max);
-        }
-        return arr;
     }
 }
