@@ -205,6 +205,7 @@ public class BinaryTree {
         int max = 0;
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
+            // 如果当前层不为node所在的层，说明已经进入了下一层，则更新当前层并且计算最大值
             if (map.get(node) != curLevel) {
                 curLevel = map.get(node);
                 max = Math.max(max, curNodes);
@@ -221,6 +222,7 @@ public class BinaryTree {
                 map.put(node.right, map.get(node) + 1);
             }
         }
+        // 注意这里还需要进行一次判断，因为最后一层已经没有下一层了，所以无法进入更新max的if
         max = Math.max(max, curNodes);
         return max;
     }
@@ -228,14 +230,16 @@ public class BinaryTree {
     // 找出节点最多的层无Map版
     public static int maxWidthNoMap(TreeNode head) {
         Deque<TreeNode> queue = new ArrayDeque<>();
-        TreeNode curEnd = head;
-        TreeNode nextEnd = null;
-        int curNodes = 0;
+        TreeNode curEnd = head; // 当前层最后的节点
+        TreeNode nextEnd = null; // 下一层最后的节点
+        int curNodes = 0; // 当前层的节点数
         int max = 0;
         queue.offer(head);
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
             curNodes++;
+
+            // 无论是左还是右都要更新下一层结尾
             if (node.left != null) {
                 queue.offer(node.left);
                 nextEnd = node.left;
@@ -244,6 +248,10 @@ public class BinaryTree {
                 queue.offer(node.right);
                 nextEnd = node.right;
             }
+
+            // 如果当前的节点等于curEnd说明即将进入下一层
+            // 那么就要更新一下最大值，并且将curNodes重置
+            // 当前层的结尾变为下一层的结尾（为进入下一层做准备）
             if (node == curEnd) {
                 max = Math.max(max, curNodes);
                 curNodes = 0;
