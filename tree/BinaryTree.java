@@ -64,7 +64,7 @@ public class BinaryTree {
         if (head == null) {
             return;
         }
-        System.out.print(head.val + " ");
+        visit(head);
         pre(head.left);
         pre(head.right);
     }
@@ -75,7 +75,7 @@ public class BinaryTree {
             return;
         }
         in(head.left);
-        System.out.print(head.val + " ");
+        visit(head);
         in(head.right);
     }
 
@@ -86,7 +86,7 @@ public class BinaryTree {
         }
         post(head.left);
         post(head.right);
-        System.out.print(head.val + " ");
+        visit(head);
     }
 
     // 先序遍历迭代版
@@ -96,7 +96,7 @@ public class BinaryTree {
         while (!stack.isEmpty()) {
             // 先打印根节点
             TreeNode node = stack.pop();
-            System.out.print(node.val + " ");
+            visit(node);
 
             // 两个孩子依次入栈
             // 因为先进后出，所以要先进右孩子
@@ -106,6 +106,45 @@ public class BinaryTree {
             if (node.left != null) {
                 stack.push(node.left);
             }
+        }
+    }
+
+    // 先序遍历左侧链版1
+    public static void preLeftBranch1(TreeNode head) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        while (head != null) {  // 沿着左侧链下行
+            visit(head);
+            if (head.right != null) {
+                stack.push(head.right);
+            }
+            head = head.left;
+            // 当左侧链到底，沿着右侧链上行
+            if (head == null && !stack.isEmpty()) {
+                head = stack.pop();
+            }
+        }
+    }
+
+    // 先序遍历左侧链版2
+    public static void preLeftBranch2(TreeNode head) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        while (true) {
+            visitAloneLeftBranch(head, stack);
+            if (stack.isEmpty()) {
+                break;
+            }
+            head = stack.pop();
+        }
+    }
+
+    // 沿着左侧链访问
+    private static void visitAloneLeftBranch(TreeNode head, Deque<TreeNode> stack) {
+        while (head != null) {
+            visit(head);
+            if (head.right != null) {
+                stack.push(head.right);
+            }
+            head = head.left;
         }
     }
 
@@ -119,7 +158,7 @@ public class BinaryTree {
                     head = head.left;
                 } else {    // 当压不动了的时候（即head此时为空），则开始出栈并打印，然后来到右孩子处
                     head = stack.pop();
-                    System.out.print(head.val + " ");
+                    visit(head);
                     head = head.right;
                 }
             }
@@ -184,7 +223,7 @@ public class BinaryTree {
         queue.offer(head);
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
-            System.out.print(node.val + " ");
+            visit(node);
             if (node.left != null) {
                 queue.offer(node.left);
             }
@@ -259,6 +298,11 @@ public class BinaryTree {
             }
         }
         return max;
+    }
+
+    // 访问
+    private static void visit(TreeNode node) {
+        System.out.print(node.val + " ");
     }
 
     // 用于获得树的层数
