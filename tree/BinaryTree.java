@@ -50,30 +50,6 @@ public class BinaryTree {
             if (node.left != null && node.right != null) {  // 如果已经没有孩子节点了那么进行标记false
                 map.put(node, false);
             }
-
-
-//            for (Map.Entry<TreeNode, Boolean> entry : map.entrySet()) {
-//                TreeNode node = entry.getKey();
-//                Boolean hasChild = entry.getValue();
-//                if (hasChild) { // 如果有孩子节点才进行创建
-//                    TreeNode child = null;
-//                    if (node.left == null && node.right == null) {  // 如果左右孩子都为空则随机选取一个孩子节点创建新节点
-//                        int randomInt = new Random().nextInt(2);
-//                        child = randomInt == 0 ?
-//                                (node.left = new TreeNode(nums.remove(0))) :
-//                                (node.right = new TreeNode(nums.remove(0)));
-//                    } else {    // 否则直接选为空的那个
-//                        child = node.left == null ?
-//                                (node.left = new TreeNode(nums.remove(0))) :
-//                                (node.right = new TreeNode(nums.remove(0)));
-//                    }
-//                    map.put(child, true);   // 将孩子节点加入标记map
-//                    if (node.left != null && node.right != null) {  // 如果已经没有孩子节点了那么进行标记false
-//                        map.put(node, false);
-//                    }
-//                    break;
-//                }
-//            }
         }
         return head;
     }
@@ -237,7 +213,6 @@ public class BinaryTree {
             } else {
                 curNodes += 1;
             }
-            System.out.print(node.val + " ");
             if (node.left != null) {
                 queue.offer(node.left);
                 map.put(node.left, map.get(node) + 1);
