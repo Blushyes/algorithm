@@ -10,6 +10,7 @@ public class BinaryTreeTraver {
         BinaryTree.traver(head, BinaryTree::postIt, "postIt");
         BinaryTree.traver(head, BinaryTree::postItOneStack, "postItOneStack");
         BinaryTree.traver(head, BinaryTree::level, "level");
-        System.out.println("maxLevelNodes: " + BinaryTree.findMaxLevelNodes(head));
+        System.out.println("maxWidthMap: " + BinaryTree.maxWidthMap(head));
+        System.out.println("maxWidthNoMap: " + BinaryTree.maxWidthNoMap(head));
     }
 }

@@ -1,6 +1,5 @@
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class BinaryTree {
     // 创建有n个节点的随机二叉树
@@ -195,8 +194,8 @@ public class BinaryTree {
         }
     }
 
-    // 找出节点最多的层
-    public static int findMaxLevelNodes(TreeNode head) {
+    // 找出节点最多的层Map版
+    public static int maxWidthMap(TreeNode head) {
         Map<TreeNode, Integer> map = new HashMap<>();
         Deque<TreeNode> queue = new ArrayDeque<>();
         map.put(head, 1);
@@ -211,7 +210,7 @@ public class BinaryTree {
                 max = Math.max(max, curNodes);
                 curNodes = 1;
             } else {
-                curNodes += 1;
+                curNodes++;
             }
             if (node.left != null) {
                 queue.offer(node.left);
@@ -220,6 +219,35 @@ public class BinaryTree {
             if (node.right != null) {
                 queue.offer(node.right);
                 map.put(node.right, map.get(node) + 1);
+            }
+        }
+        max = Math.max(max, curNodes);
+        return max;
+    }
+
+    // 找出节点最多的层无Map版
+    public static int maxWidthNoMap(TreeNode head) {
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        TreeNode curEnd = head;
+        TreeNode nextEnd = null;
+        int curNodes = 0;
+        int max = 0;
+        queue.offer(head);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            curNodes++;
+            if (node.left != null) {
+                queue.offer(node.left);
+                nextEnd = node.left;
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+                nextEnd = node.right;
+            }
+            if (node == curEnd) {
+                max = Math.max(max, curNodes);
+                curNodes = 0;
+                curEnd = nextEnd;
             }
         }
         return max;
