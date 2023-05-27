@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/binary-search" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/bit-operation" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sort" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/common" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tree" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
