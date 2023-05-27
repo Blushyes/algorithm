@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class BinaryTree {
     // 创建有n个节点的随机二叉树
@@ -18,28 +19,61 @@ public class BinaryTree {
 
         // 加入 n - 1 个节点
         for (int i = 0; i < n - 1; i++) {
-            for (Map.Entry<TreeNode, Boolean> entry : map.entrySet()) {
-                TreeNode node = entry.getKey();
-                Boolean hasChild = entry.getValue();
-                if (hasChild) { // 如果有孩子节点才进行创建
-                    TreeNode child = null;
-                    if (node.left == null && node.right == null) {  // 如果左右孩子都为空则随机选取一个孩子节点创建新节点
-                        int randomInt = new Random().nextInt(2);
-                        child = randomInt == 0 ?
-                                (node.left = new TreeNode(nums.remove(0))) :
-                                (node.right = new TreeNode(nums.remove(0)));
-                    } else {    // 否则直接选为空的那个
-                        child = node.left == null ?
-                                (node.left = new TreeNode(nums.remove(0))) :
-                                (node.right = new TreeNode(nums.remove(0)));
-                    }
-                    map.put(child, true);   // 将孩子节点加入标记map
-                    if (node.left != null && node.right != null) {  // 如果已经没有孩子节点了那么进行标记false
-                        map.put(node, false);
-                    }
-                    break;
-                }
+            List<Map.Entry<TreeNode, Boolean>> list = new ArrayList<>(map.entrySet().stream().toList());
+            Collections.shuffle(list);
+            Map.Entry<TreeNode, Boolean> entry = list.get(0);
+            TreeNode node = entry.getKey();
+            boolean hasChild = entry.getValue();
+
+            // 如果没有孩子那就重新选择
+            while (!hasChild) {
+                list.remove(0);
+                Collections.shuffle(list);
+                entry = list.get(0);
+                hasChild = entry.getValue();
+                node = entry.getKey();
             }
+
+            // 如果有孩子节点才进行创建
+            TreeNode child = null;
+            if (node.left == null && node.right == null) {  // 如果左右孩子都为空则随机选取一个孩子节点创建新节点
+                int randomInt = new Random().nextInt(2);
+                child = randomInt == 0 ?
+                        (node.left = new TreeNode(nums.remove(0))) :
+                        (node.right = new TreeNode(nums.remove(0)));
+            } else {    // 否则直接选为空的那个
+                child = node.left == null ?
+                        (node.left = new TreeNode(nums.remove(0))) :
+                        (node.right = new TreeNode(nums.remove(0)));
+            }
+            map.put(child, true);   // 将孩子节点加入标记map
+            if (node.left != null && node.right != null) {  // 如果已经没有孩子节点了那么进行标记false
+                map.put(node, false);
+            }
+
+
+//            for (Map.Entry<TreeNode, Boolean> entry : map.entrySet()) {
+//                TreeNode node = entry.getKey();
+//                Boolean hasChild = entry.getValue();
+//                if (hasChild) { // 如果有孩子节点才进行创建
+//                    TreeNode child = null;
+//                    if (node.left == null && node.right == null) {  // 如果左右孩子都为空则随机选取一个孩子节点创建新节点
+//                        int randomInt = new Random().nextInt(2);
+//                        child = randomInt == 0 ?
+//                                (node.left = new TreeNode(nums.remove(0))) :
+//                                (node.right = new TreeNode(nums.remove(0)));
+//                    } else {    // 否则直接选为空的那个
+//                        child = node.left == null ?
+//                                (node.left = new TreeNode(nums.remove(0))) :
+//                                (node.right = new TreeNode(nums.remove(0)));
+//                    }
+//                    map.put(child, true);   // 将孩子节点加入标记map
+//                    if (node.left != null && node.right != null) {  // 如果已经没有孩子节点了那么进行标记false
+//                        map.put(node, false);
+//                    }
+//                    break;
+//                }
+//            }
         }
         return head;
     }

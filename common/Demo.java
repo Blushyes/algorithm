@@ -1,5 +1,3 @@
-import java.util.function.Consumer;
-
 public class Demo {
     public static long measure(Runnable runnable) {
         long start = System.currentTimeMillis();

@@ -1,6 +1,6 @@
 public class BinaryTreeTraver {
     public static void main(String[] args) {
-        TreeNode head = BinaryTree.randomTree(5);
+        TreeNode head = BinaryTree.randomTree(7);
         BinaryTree.show(head);
         BinaryTree.traver(head, BinaryTree::pre, "pre");
         BinaryTree.traver(head, BinaryTree::in, "in");
