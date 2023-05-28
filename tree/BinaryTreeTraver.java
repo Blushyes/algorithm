@@ -8,6 +8,7 @@ public class BinaryTreeTraver {
         BinaryTree.traver(head, BinaryTree::preLeftBranch2, "preLeftBranch2");
         BinaryTree.traver(head, BinaryTree::in, "in");
         BinaryTree.traver(head, BinaryTree::inIt, "inIt");
+        BinaryTree.traver(head, BinaryTree::inLeftBranch, "inLeftBranch");
         BinaryTree.traver(head, BinaryTree::post, "post");
         BinaryTree.traver(head, BinaryTree::postIt, "postIt");
         BinaryTree.traver(head, BinaryTree::postItOneStack, "postItOneStack");

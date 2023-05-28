@@ -128,7 +128,7 @@ public class BinaryTree {
     // 先序遍历左侧链版2
     public static void preLeftBranch2(TreeNode head) {
         Deque<TreeNode> stack = new ArrayDeque<>();
-        while (true) {
+        while (true) {  // 不断地
             visitAloneLeftBranch(head, stack);
             if (stack.isEmpty()) {
                 break;
@@ -160,6 +160,28 @@ public class BinaryTree {
                     head = stack.pop();
                     visit(head);
                     head = head.right;
+                }
+            }
+        }
+    }
+
+    // 中序遍历左侧链版
+    public static void inLeftBranch(TreeNode head) {
+        Deque<TreeNode> stack1 = new ArrayDeque<>();
+        Deque<TreeNode> stack2 = new ArrayDeque<>();
+        while (head != null) {
+            if (head.right != null) {
+                stack2.push(head.right);
+            }
+            stack1.push(head);
+            head = head.left;
+            if (head == null) {
+                while (!stack1.isEmpty()) {
+                    TreeNode node = stack1.pop();
+                    visit(node);
+                }
+                if (!stack2.isEmpty()) {
+                    head = stack2.pop();
                 }
             }
         }
